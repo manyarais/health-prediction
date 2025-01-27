@@ -1,0 +1,113 @@
+<html xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'patients')}">
+
+<body>
+
+  <h2>Patient</h2>
+  <form th:object="${patient}" class="form-horizontal" id="add-patient-form" method="post">
+    
+    <div class="form-group has-feedback">
+      <input
+        th:replace="~{fragments/inputField :: input ('User Id', 'userId', 'text')}" />
+    </div>
+
+    <div class="form-group has-feedback">
+      <input th:replace="~{fragments/inputField :: input ('Date of Birth', 'dateOfBirth', 'date')}" />
+    </div>
+
+    <div class="form-group has-feedback">
+      <input th:replace="~{fragments/inputField :: input ('Email', 'email', 'text')}" />
+    </div>
+
+    <div class="form-group has-feedback">
+      <input th:replace="~{fragments/inputField :: input ('BMI', 'bmi', 'number')}" step="0.01" />
+    </div>
+
+    <div class="form-group has-feedback">
+      <input th:replace="~{fragments/inputField :: input ('Phone Number', 'phoneNumber', 'text')}" pattern="[0-9]{10}" />
+    </div>
+
+    <div class="form-group has-feedback">
+      <input th:replace="~{fragments/inputField :: input ('Address', 'address', 'text')}" />
+    </div>
+
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select th:field="*{gender}" class="form-control">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="haveHypertension">Have Hypertension</label>
+      <input type="checkbox" th:field="*{haveHypertension}" />
+    </div>
+
+    <div class="form-group">
+      <label for="everMarried">Ever Married</label>
+      <input type="checkbox" th:field="*{everMarried}" />
+    </div>
+
+    <div class="form-group">
+      <label for="haveDiabetes">Have Diabetes</label>
+      <input type="checkbox" th:field="*{haveDiabetes}" />
+    </div>
+
+    <div class="form-group">
+      <label for="hadStroke">Had Stroke</label>
+      <input type="checkbox" th:field="*{hadStroke}" />
+    </div>
+
+    <div class="form-group">
+      <label for="haveHeartDisease">Have Heart Disease</label>
+      <input type="checkbox" th:field="*{haveHeartDisease}" />
+    </div>
+
+    <div class="form-group">
+      <label for="smokingStatus">Smoking Status</label>
+      <select th:field="*{smokingStatus}" class="form-control">
+        <option value="Current Smoker">Current Smoker</option>
+        <option value="Former Smoker">Former Smoker</option>
+        <option value="Never Smoked">Never Smoked</option>
+        <option value="Unknown">Unknown</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="residenceType">Residence Type</label>
+      <select th:field="*{residenceType}" class="form-control">
+        <option value="Own House">Own House</option>
+        <option value="Own Apartment">Own Apartment</option>
+        <option value="Rental">Rental</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="workType">Work Type</label>
+      <select th:field="*{workType}" class="form-control">
+        <option value="Salaried Employee">Salaried Employee</option>
+        <option value="Daily Worker">Daily Worker</option>
+        <option value="Business Owner">Business Owner</option>
+        <option value="Self-Employed">Self Employed</option>
+        <option value="Unemployed">Unemployed</option>
+        <option value="Other">Other</option>
+        <option value="Student">Student</option>
+        <option value="Retired">Retired</option>
+      </select>
+    </div>
+
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button
+          th:with="text=${patient['new']} ? 'Add Patient' : 'Update Patient'"
+          class="btn btn-primary" type="submit" th:text="${text}">Add
+          Patient</button>
+      </div>
+    </div>
+  </form>
+</body>
+</html>
