@@ -98,7 +98,6 @@ public class PatientRiskAssessment {
 		System.out.println("Personalized Recommendations:\n" + recommendations);
 
 		return recommendations;
-
 	}
 
 	// Prepares a Map containing patient data suitable for model input

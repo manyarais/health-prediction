@@ -81,9 +81,11 @@ class PatientController {
 			return VIEWS_PATIENT_CREATE_OR_UPDATE_FORM;
 		}
 
-		String recommendation = "";
+		String recommendations = "";
 		try {
-			recommendation = PatientRiskAssessment.recommendation(patient);
+			recommendations = PatientRiskAssessment.recommendation(patient);
+
+			patient.setRecommendations(recommendations);
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -91,8 +93,7 @@ class PatientController {
 
 		this.patients.save(patient);
 
-
-		redirectAttributes.addFlashAttribute("message", "New Patient Created. Recommendation: " + recommendation);
+		redirectAttributes.addFlashAttribute("message", "New Patient Created. Recommendation: " + recommendations);
 		return "redirect:/patients/" + patient.getId();
 	}
 

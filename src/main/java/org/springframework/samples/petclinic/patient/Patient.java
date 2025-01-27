@@ -87,6 +87,9 @@ public class Patient extends BaseEntity {
 	@Column(name = "work_type")
 	private WorkType workType;
 
+	@Column(name = "recommendations")
+	private String recommendations;
+
 	@Column(name = "registration_date")
 	private Timestamp registrationDate;
 
@@ -210,6 +213,14 @@ public class Patient extends BaseEntity {
 
 	public void setWorkType(WorkType workType) {
 		this.workType = workType;
+	}
+
+	public String getRecommendations() {
+		return recommendations;
+	}
+
+	public void setRecommendations(String recommendations) {
+		this.recommendations = recommendations;
 	}
 
 	public Timestamp getRegistrationDate() {

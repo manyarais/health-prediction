@@ -106,6 +106,12 @@
       <td><b th:text="*{workType}"></b></td>
     </tr>
 
+    <!-- Work Type -->
+    <tr>
+      <th>AI Recommendation</th>
+      <td><b th:text="*{recommendations}"></b></td>
+    </tr>
+
   </table>
 
   <a th:href="@{__${patient.id}__/edit}" class="btn btn-primary">Edit Patient</a>
