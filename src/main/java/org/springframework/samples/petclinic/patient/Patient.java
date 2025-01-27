@@ -245,20 +245,4 @@ public class Patient extends BaseEntity {
 
 	}
 
-	@Override
-	public String toString() {
-		return new ToStringCreator(this).append("id", this.getId())
-			.append("new", this.isNew())
-			.append("userID", this.getUserId())
-			/*
-			 * .append("age", this.getAge()) .append("avg_glucose_level",
-			 * this.getAvg_glucose_level()) .append("bmi", this.getBmi())
-			 * .append("heart_disease", this.getHeart_disease()) .append("hypertension",
-			 * this.getHypertension()) .append("ever_married", this.getEver_married())
-			 * .append("residence_type", this.getResidence_type()) .append("gender",
-			 * this.getGender()) .append("work_type", this.getWork_type())
-			 */
-			.toString();
-	}
-
 }

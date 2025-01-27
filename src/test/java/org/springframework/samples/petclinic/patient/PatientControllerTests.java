@@ -71,14 +71,8 @@ class PatientControllerTests {
 	private Patient saurabh() {
 		Patient saurabh = new Patient();
 		saurabh.setId(TEST_OWNER_ID);
-		saurabh.setUserID("saurabhrais");
-		/*
-		 * saurabh.setAge(55); saurabh.setAvg_glucose_level(43); saurabh.setBmi(45.5);
-		 * saurabh.setEver_married("Yes"); saurabh.setGender("Female");
-		 * saurabh.setHeart_disease(0); saurabh.setHypertension(0);
-		 * saurabh.setResidence_type("House"); saurabh.setUserID("saurabhtest1");
-		 * saurabh.setWork_type("Office");
-		 */
+		saurabh.setUserId("saurabhrais");
+
 		return saurabh;
 	}
 
@@ -86,7 +80,7 @@ class PatientControllerTests {
 	void setup() {
 
 		Patient saurabh = saurabh();
-		given(this.patients.findByUserIDStartingWith(eq("saurabhrais"), any(Pageable.class)))
+		given(this.patients.findByUserIdStartingWith(eq("saurabhrais"), any(Pageable.class)))
 			.willReturn(new PageImpl<>(Lists.newArrayList(saurabh)));
 
 		given(this.patients.findAll(any(Pageable.class))).willReturn(new PageImpl<>(Lists.newArrayList(saurabh)));
@@ -104,7 +98,7 @@ class PatientControllerTests {
 
 	@Test
 	void testProcessCreationFormSuccess() throws Exception {
-		mockMvc.perform(post("/patients/new").param("userID", "saurabhrais")
+		mockMvc.perform(post("/patients/new").param("userId", "saurabhrais")
 		/*
 		 * .param("age", "45") .param("bmi", "43.1") .param("ever_married", "Yes")
 		 * .param("heart_disease", "0") .param("hypertension", "0") .param("gender",
@@ -135,17 +129,17 @@ class PatientControllerTests {
 	@Test
 	void testProcessFindFormSuccess() throws Exception {
 		Page<Patient> tasks = new PageImpl<>(Lists.newArrayList(saurabh(), new Patient()));
-		when(this.patients.findByUserIDStartingWith(anyString(), any(Pageable.class))).thenReturn(tasks);
+		when(this.patients.findByUserIdStartingWith(anyString(), any(Pageable.class))).thenReturn(tasks);
 		mockMvc.perform(get("/patients?page=1"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("patients/patientsList"));
 	}
 
 	@Test
-	void testProcessFindFormByUserID() throws Exception {
+	void testProcessFindFormByUserId() throws Exception {
 		Page<Patient> tasks = new PageImpl<>(Lists.newArrayList(saurabh()));
-		when(this.patients.findByUserIDStartingWith(eq("saurabhrais"), any(Pageable.class))).thenReturn(tasks);
-		mockMvc.perform(get("/patients?page=1").param("userID", "saurabhrais"))
+		when(this.patients.findByUserIdStartingWith(eq("saurabhrais"), any(Pageable.class))).thenReturn(tasks);
+		mockMvc.perform(get("/patients?page=1").param("userId", "saurabhrais"))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/patients/" + TEST_OWNER_ID));
 	}
@@ -153,11 +147,11 @@ class PatientControllerTests {
 	@Test
 	void testProcessFindFormNoPatientsFound() throws Exception {
 		Page<Patient> tasks = new PageImpl<>(Lists.newArrayList());
-		when(this.patients.findByUserIDStartingWith(eq("Unknown UserID"), any(Pageable.class))).thenReturn(tasks);
-		mockMvc.perform(get("/patients?page=1").param("userID", "Unknown UserID"))
+		when(this.patients.findByUserIdStartingWith(eq("Unknown UserId"), any(Pageable.class))).thenReturn(tasks);
+		mockMvc.perform(get("/patients?page=1").param("userId", "Unknown UserId"))
 			.andExpect(status().isOk())
-			.andExpect(model().attributeHasFieldErrors("patient", "userID"))
-			.andExpect(model().attributeHasFieldErrorCode("patient", "userID", "notFound"))
+			.andExpect(model().attributeHasFieldErrors("patient", "userId"))
+			.andExpect(model().attributeHasFieldErrorCode("patient", "userId", "notFound"))
 			.andExpect(view().name("patients/findPatients"));
 
 	}
@@ -167,13 +161,13 @@ class PatientControllerTests {
 		mockMvc.perform(get("/patients/{patientId}/edit", TEST_OWNER_ID))
 			.andExpect(status().isOk())
 			.andExpect(model().attributeExists("patient"))
-			.andExpect(model().attribute("patient", hasProperty("userID", is("saurabhrais"))))
+			.andExpect(model().attribute("patient", hasProperty("userId", is("saurabhrais"))))
 			.andExpect(view().name("patients/createOrUpdatePatientForm"));
 	}
 
 	@Test
 	void testProcessUpdatePatientFormSuccess() throws Exception {
-		mockMvc.perform(post("/patients/{patientId}/edit", TEST_OWNER_ID).param("userID", "saurabhrais"))
+		mockMvc.perform(post("/patients/{patientId}/edit", TEST_OWNER_ID).param("userId", "saurabhrais"))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(view().name("redirect:/patients/{patientId}"));
 	}
@@ -187,10 +181,10 @@ class PatientControllerTests {
 
 	@Test
 	void testProcessUpdatePatientFormHasErrors() throws Exception {
-		mockMvc.perform(post("/patients/{patientId}/edit", TEST_OWNER_ID).param("userID", "saurabhrais"))
+		mockMvc.perform(post("/patients/{patientId}/edit", TEST_OWNER_ID).param("userId", "saurabhrais"))
 			.andExpect(status().isOk())
 			.andExpect(model().attributeHasErrors("patient"))
-			.andExpect(model().attributeHasFieldErrors("patient", "userID"))
+			.andExpect(model().attributeHasFieldErrors("patient", "userId"))
 			.andExpect(view().name("patients/createOrUpdatePatientForm"));
 	}
 
@@ -198,7 +192,7 @@ class PatientControllerTests {
 	void testShowPatient() throws Exception {
 		mockMvc.perform(get("/patients/{patientId}", TEST_OWNER_ID))
 			.andExpect(status().isOk())
-			.andExpect(model().attribute("patient", hasProperty("userID", is("saurabhrais"))))
+			.andExpect(model().attribute("patient", hasProperty("userId", is("saurabhrais"))))
 			.andExpect(view().name("patients/patientDetails"));
 	}
 
@@ -208,7 +202,7 @@ class PatientControllerTests {
 
 		Patient patient = new Patient();
 		patient.setId(2);
-		patient.setUserID("saurabhrais");
+		patient.setUserId("saurabhrais");
 		/*
 		 * patient.setAge(55); patient.setAvg_glucose_level(43); patient.setBmi(45.5);
 		 * patient.setEver_married("Yes"); patient.setGender("Female");

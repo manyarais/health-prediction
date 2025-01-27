@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.patient;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,8 +81,18 @@ class PatientController {
 			return VIEWS_PATIENT_CREATE_OR_UPDATE_FORM;
 		}
 
+		String recommendation = "";
+		try {
+			recommendation = PatientRiskAssessment.recommendation(patient);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		this.patients.save(patient);
-		redirectAttributes.addFlashAttribute("message", "New Patient Created");
+
+
+		redirectAttributes.addFlashAttribute("message", "New Patient Created. Recommendation: " + recommendation);
 		return "redirect:/patients/" + patient.getId();
 	}
 
@@ -102,7 +113,7 @@ class PatientController {
 		Page<Patient> patientsResults = findPaginatedForPatientsUserId(page, patient.getUserId());
 		if (patientsResults.isEmpty()) {
 			// no patients found
-			result.rejectValue("userID", "notFound", "not found");
+			result.rejectValue("userId", "notFound", "not found");
 			return "patients/findPatients";
 		}
 
