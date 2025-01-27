@@ -46,7 +46,8 @@
       <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>spring-cloud-gcp-dependencies</artifactId>
-      <version>4.1.4</version>
+      <!--version>4.1.4</version-->
+      <version>LATEST</version>
       <type>pom</type>
       <scope>import</scope>
       </dependency>
@@ -63,16 +64,56 @@
 
 
   <dependencies>
-  <dependency>
+
+<dependency>
     <groupId>com.google.cloud</groupId>
     <artifactId>google-cloud-vertexai</artifactId>
-    <version>1.16.0</version>
+    <version>1.15.0</version>
+</dependency>
+
+<dependency>
+    <groupId>com.google.api.grpc</groupId>
+    <artifactId>proto-google-cloud-vertexai-v1</artifactId>
+    <version>1.15.0</version>
+</dependency>
+
+
+<dependency>
+    <groupId>dev.langchain4j</groupId>
+    <artifactId>langchain4j-open-ai</artifactId>
+    <version>1.0.0-alpha1</version>
+  </dependency>
+
+<dependency>
+    <groupId>dev.langchain4j</groupId>
+    <artifactId>langchain4j</artifactId>
+    <version>1.0.0-alpha1</version>
+    <scope>test</scope>
+</dependency>
+
+
+<dependency>
+    <groupId>dev.langchain4j</groupId>
+    <artifactId>langchain4j-document-parser-apache-pdfbox</artifactId>
+    <version>1.0.0-alpha1</version>
+</dependency>
+
+    <dependency>
+      <groupId>dev.langchain4j</groupId>
+      <artifactId>langchain4j-core</artifactId>
+      <version>1.0.0-alpha1</version>
+    </dependency>
+
+  <dependency>
+    <groupId>dev.langchain4j</groupId>
+    <artifactId>langchain4j-vertex-ai</artifactId>
+    <version>1.0.0-alpha1</version>
   </dependency>
 
   <dependency>
-  <groupId>com.google.protobuf</groupId>
-  <artifactId>protobuf-java</artifactId>
-  <version>3.19.1</version>
+    <groupId>dev.langchain4j</groupId>
+    <artifactId>langchain4j-vertex-ai-gemini</artifactId>
+    <version>1.0.0-alpha1</version>
   </dependency>
 
 

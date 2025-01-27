@@ -17,6 +17,8 @@ package org.springframework.samples.petclinic.patient;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.Period;
 
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.samples.petclinic.model.BaseEntity;
@@ -229,6 +231,22 @@ public class Patient extends BaseEntity {
 
 	public void setRegistrationDate(Timestamp registrationDate) {
 		this.registrationDate = registrationDate;
+	}
+
+	// Calculates age based on the date of birth
+	public int getAge() {
+		if (this.getDateOfBirth() == null) {
+			return 0;
+		}
+		LocalDate birthDate = this.getDateOfBirth().toLocalDate();
+		LocalDate today = LocalDate.now();
+		return Period.between(birthDate, today).getYears();
+	}
+
+	// Calculates isSmoker
+	public Boolean isSmoker() {
+		return this.getSmokingStatus() != null && (this.getSmokingStatus() == SmokingStatus.CurrentSmoker
+				|| this.getSmokingStatus() == SmokingStatus.FormerSmoker);
 	}
 
 	// Enums for Gender, SmokingStatus, ResidenceType, and WorkType
