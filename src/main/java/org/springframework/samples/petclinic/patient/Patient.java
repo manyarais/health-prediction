@@ -15,12 +15,10 @@
  */
 package org.springframework.samples.petclinic.patient;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.Period;
 
-import org.springframework.core.style.ToStringCreator;
 import org.springframework.samples.petclinic.model.BaseEntity;
 
 import jakarta.persistence.Column;
@@ -66,7 +64,7 @@ public class Patient extends BaseEntity {
 	private Boolean haveHeartDisease;
 
 	@Column(name = "bmi")
-	private BigDecimal bmi;
+	private Double bmi;
 
 	@Column(name = "address")
 	private String address;
@@ -161,11 +159,11 @@ public class Patient extends BaseEntity {
 		this.haveHeartDisease = haveHeartDisease;
 	}
 
-	public BigDecimal getBmi() {
+	public Double getBmi() {
 		return bmi;
 	}
 
-	public void setBmi(BigDecimal bmi) {
+	public void setBmi(Double bmi) {
 		this.bmi = bmi;
 	}
 

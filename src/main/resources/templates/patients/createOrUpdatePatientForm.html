@@ -8,27 +8,28 @@
     
     <div class="form-group has-feedback">
       <input
-        th:replace="~{fragments/inputField :: input ('User Id', 'userId', 'text')}" />
+        th:replace="~{fragments/inputField :: input ('User Id ', 'userId', 'text')}" />
     </div>
 
     <div class="form-group has-feedback">
-      <input th:replace="~{fragments/inputField :: input ('Date of Birth', 'dateOfBirth', 'date')}" />
+      <input th:replace="~{fragments/inputField :: input ('Date of Birth ', 'dateOfBirth', 'date')}" />
     </div>
 
     <div class="form-group has-feedback">
-      <input th:replace="~{fragments/inputField :: input ('Email', 'email', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Email ', 'email', 'text')}" />
+    </div>
+
+  <div class="form-group">
+    <label for="bmi">BMI</label>
+    <input type="number" th:field="*{bmi}" step="0.1" min="18" max="80"/> 
+  </div>
+
+    <div class="form-group has-feedback">
+      <input th:replace="~{fragments/inputField :: input ('Phone Number ', 'phoneNumber', 'text')}" pattern="[0-9]{10}" />
     </div>
 
     <div class="form-group has-feedback">
-      <input th:replace="~{fragments/inputField :: input ('BMI', 'bmi', 'number')}" step="0.01" />
-    </div>
-
-    <div class="form-group has-feedback">
-      <input th:replace="~{fragments/inputField :: input ('Phone Number', 'phoneNumber', 'text')}" pattern="[0-9]{10}" />
-    </div>
-
-    <div class="form-group has-feedback">
-      <input th:replace="~{fragments/inputField :: input ('Address', 'address', 'text')}" />
+      <input th:replace="~{fragments/inputField :: input ('Address ', 'address', 'text')}" />
     </div>
 
     <div class="form-group">

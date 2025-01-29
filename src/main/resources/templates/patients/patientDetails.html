@@ -106,10 +106,15 @@
       <td><b th:text="*{workType}"></b></td>
     </tr>
 
-    <!-- Work Type -->
+    <!-- Work Type 
     <tr>
       <th>AI Recommendation</th>
       <td><b th:text="*{recommendations}"></b></td>
+    </tr>-->
+
+    <tr>
+      <th>AI Recommendation</th>
+      <td><div th:utext="*{recommendations}"></div></td>
     </tr>
 
   </table>

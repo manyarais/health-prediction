@@ -163,6 +163,17 @@ class PatientController {
 		}
 
 		patient.setId(patientId);
+
+		String recommendations = "";
+		try {
+			recommendations = PatientRiskAssessment.recommendation(patient);
+
+			patient.setRecommendations(recommendations);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		this.patients.save(patient);
 		redirectAttributes.addFlashAttribute("message", "Patient Values Updated");
 		return "redirect:/patients/{patientId}";

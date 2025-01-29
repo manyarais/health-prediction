@@ -39,7 +39,34 @@ public class PatientRiskAssessment {
 		// Print or store the recommendations
 		System.out.println("Personalized Recommendations:\n" + recommendations);
 
+		// generate html
+		recommendations = generateHtml(recommendations);
+		System.out.println("HTML Personalized Recommendations:\n" + recommendations);
+
 		return recommendations;
+	}
+
+	public static String generateHtml(String inputString) {
+		String[] sections = inputString.split("\\*\\*");
+		StringBuilder html = new StringBuilder();
+
+		html.append("    <h1>").append(sections[0]).append("</h1>\n");
+
+		for (int i = 1; i < sections.length; i++) {
+			String[] lines = sections[i].split("\\* ");
+			html.append("    <h2>").append(lines[0].split(":")[0]).append("</h2>\n").append("    <ul>\n");
+			for (int j = 1; j < lines.length; j++) {
+				if (!lines[j].isEmpty()) {
+					html.append("        <li>").append(lines[j]).append("</li>\n");
+				}
+			}
+			html.append("    </ul>\n");
+		}
+
+		html.append(
+				"    <p><strong>Disclaimer:** This information is for general guidance only and does not constitute medical advice. Consult with your physician for personalized recommendations and treatment plans.</p>\n");
+
+		return html.toString();
 	}
 
 	// Calculates age based on the date of birth
@@ -76,11 +103,12 @@ public class PatientRiskAssessment {
 		promptBuilder.append("Diabetes Risk: ").append(diabetesRisk).append("\n");
 		promptBuilder.append("Generate a personalized health recommendation plan for this patient. ");
 		promptBuilder.append("The plan should include:\n");
-		promptBuilder.append("- Lifestyle modifications (diet, exercise, stress management)\n");
-		promptBuilder.append("- Preventive screenings and checkups\n");
-		promptBuilder.append("- Medication recommendations (if applicable)\n");
+		promptBuilder.append("- Lifestyle modifications (diet, exercise, stress management) (if applicable)\n");
+		promptBuilder.append("- Preventive screenings and checkups (if applicable)\n");
+		promptBuilder.append("- Medication recommendations in detail (if applicable)\n");
+		promptBuilder.append("- Mindfulness recommendations (if applicable)\n");
 		promptBuilder.append(
-				"The recommendations should be concise, easy to understand, and tailored to the patient's individual risk factors.");
+				"The recommendations should be concise, easy to understand, and must be tailored to the patient's individual risk factors and attributes.");
 		return promptBuilder.toString();
 	}
 
