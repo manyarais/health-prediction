@@ -4,10 +4,13 @@
 
   <body>
 
-    <h2 th:text="#{welcome}">Welcome</h2>
+    <h2 th:text="#{welcome}">Welcome! Take control of your health with personalized prevention.</h2>    
     <div class="row">
         <div class="col-md-12">
-          <img class="img-responsive" src="../static/resources/images/pets.png" th:src="@{/resources/images/pets.png}"/>
+
+          <a th:href="@{/patients/find}">
+            <img class="img-responsive" src="../static/resources/images/myhealth.jpg" th:src="@{/resources/images/myhealth.jpg}"/>
+          </a>
         </div>
     </div>
 
