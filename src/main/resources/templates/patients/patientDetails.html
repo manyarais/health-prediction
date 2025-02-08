@@ -3,7 +3,6 @@
       th:replace="~{fragments/layout :: layout (~{::body},'patients')}">
 
 <body>
-
   <h2>Patient Details</h2>
 
   <div th:if="${message}" class="alert alert-success" id="success-message">
@@ -106,18 +105,15 @@
       <td><b th:text="*{workType}"></b></td>
     </tr>
 
-    <!-- Work Type 
-    <tr>
-      <th>AI Recommendation</th>
-      <td><b th:text="*{recommendations}"></b></td>
-    </tr>-->
 
-    <tr>
+    <!--tr>
       <th>AI Recommendation</th>
       <td><div th:utext="*{recommendations}"></div></td>
-    </tr>
+    </tr-->
 
   </table>
+
+  <div th:utext="${patient.recommendations}"></div>
 
   <a th:href="@{__${patient.id}__/edit}" class="btn btn-primary">Edit Patient</a>
 

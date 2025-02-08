@@ -33,28 +33,43 @@ public class PatientRiskAssessment {
 		// Prepare prompt for Gemini
 		String prompt = generateRecommendationPrompt(patient, heartDiseaseRisk, diabetesRisk);
 
+		System.out.println("LLM Prompt: " + prompt);
+
 		// Call Gemini LLM API (replace with your actual LLM API call)
+
+		System.out.println(" Print the response: \n\n");
 		String recommendations = callGeminiLLM(prompt);
 
 		// Print or store the recommendations
-		System.out.println("Personalized Recommendations:\n" + recommendations);
+		System.out.println("*****************Personalized Recommendations:\n\n" + recommendations);
+		System.out.println("*******************");
+		recommendations = removeAllHtmlCodeBlocks(recommendations);
+		System.out.println("Removed HTML from Recommendations:\n\n" + recommendations);
 
 		// generate html
-		recommendations = generateHtml(recommendations);
-		System.out.println("HTML Personalized Recommendations:\n" + recommendations);
+		// recommendations = generateHtml(recommendations);
+		// System.out.println("HTML Personalized Recommendations:\n" + recommendations);
 
 		return recommendations;
+	}
+
+	public static String removeAllHtmlCodeBlocks(String input) {
+		if (input == null || input.isEmpty()) {
+			return input; // Handle null or empty input
+		}
+
+		return input.replace("```html", ""); // Simple replacement
 	}
 
 	public static String generateHtml(String inputString) {
 		String[] sections = inputString.split("\\*\\*");
 		StringBuilder html = new StringBuilder();
 
-		html.append("    <h1>").append(sections[0]).append("</h1>\n");
+		html.append("    <h1>").append(sections[0]).append("</h1>\n\n");
 
 		for (int i = 1; i < sections.length; i++) {
 			String[] lines = sections[i].split("\\* ");
-			html.append("    <h2>").append(lines[0].split(":")[0]).append("</h2>\n").append("    <ul>\n");
+			html.append("    <h3>").append(lines[0].split(":")[0]).append("</h3>\n").append("    <ul>\n");
 			for (int j = 1; j < lines.length; j++) {
 				if (!lines[j].isEmpty()) {
 					html.append("        <li>").append(lines[j]).append("</li>\n");
@@ -107,8 +122,11 @@ public class PatientRiskAssessment {
 		promptBuilder.append("- Preventive screenings and checkups (if applicable)\n");
 		promptBuilder.append("- Medication recommendations in detail (if applicable)\n");
 		promptBuilder.append("- Mindfulness recommendations (if applicable)\n");
+		promptBuilder.append("The recommendations should be detailed, technical, add the details of tests,");
 		promptBuilder.append(
-				"The recommendations should be concise, easy to understand, and must be tailored to the patient's individual risk factors and attributes.");
+				"and must be tailored to the patient's individual risk factors and attributes with explanations for why these tests are needed.");
+		promptBuilder.append("Finally create it in an HTML Format within a Div.");
+
 		return promptBuilder.toString();
 	}
 
@@ -118,12 +136,13 @@ public class PatientRiskAssessment {
 			.project("my-genome-project-p2")
 			.location("us-central1")
 			.modelName("gemini-1.5-flash-002")
-			.maxOutputTokens(500)
-			.temperature(1.0f)
-			.topK(40)
-			.topP(0.95f)
+			.temperature(0.8f)
 			.maxRetries(3)
 			.build();
+
+		// .topP(0.95f)
+		// .topK(40)
+		// .maxOutputTokens(500)
 
 		PromptTemplate promptTemplate = PromptTemplate.from(prompt);
 
@@ -136,6 +155,8 @@ public class PatientRiskAssessment {
 		// Response<AiMessage> response = model.generate(p.toUserMessage());
 
 		Response<AiMessage> response = model.generate(p.toUserMessage());
+
+		System.out.println(response.content().toString());
 
 		System.out.println(response.content().text());
 
