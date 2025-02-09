@@ -48,8 +48,11 @@ gcloud compute ssh $EC2_INSTANCE --zone=$EC2_INSTANCE_ZONE << EOF
 
     echo "--- Starting commands on EC2 ---" # Keep this line for now
     whoami                                    # <--- SIMPLIFIED: Just run 'whoami' 
+    cat ~/.ssh/id_ed25519.pub
     pwd
     cd ${REMOTE_REPO_DIR}
+    pwd
+    hostname -f
     git pull origin main
     pwd
     echo "--- Commands on EC2 completed ---"   # Keep this line for now
