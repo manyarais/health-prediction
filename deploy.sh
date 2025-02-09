@@ -53,7 +53,8 @@ gcloud compute ssh $EC2_INSTANCE --zone=$EC2_INSTANCE_ZONE << EOF
     cd ${REMOTE_REPO_DIR}
     pwd
     hostname -f
-    git pull origin main
+    git remote -v  
+    git pull
     pwd
     echo "--- Commands on EC2 completed ---"   # Keep this line for now
 EOF
