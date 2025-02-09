@@ -39,7 +39,7 @@ echo "Changes pushed to Git. "
 #2.1 Set Project to my project
 echo "Setting project to ($PROJECT_NAME)..."
 gcloud config set project $PROJECT_NAME
-echo "Project set."
+echo "Project set. "
 
 # --- 3. Trigger build and deploy on EC2 instance ---
 echo "Triggering build and deploy on EC2 instance ($EC2_INSTANCE)..."
