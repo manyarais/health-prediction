@@ -47,7 +47,9 @@ echo "Connecting to the EC2 instance ($EC2_INSTANCE)..."
 gcloud compute ssh $EC2_INSTANCE --zone=$EC2_INSTANCE_ZONE << EOF
 
     echo "--- Starting commands on EC2 ---" # Keep this line for now
-    whoami                                    # <--- SIMPLIFIED: Just run 'whoami'
+    whoami                                    # <--- SIMPLIFIED: Just run 'whoami' 
+    pwd
+    cd ${REMOTE_REPO_DIR}
     pwd
     echo "--- Commands on EC2 completed ---"   # Keep this line for now
 EOF
