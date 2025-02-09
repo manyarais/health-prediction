@@ -24,7 +24,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 echo "Changes committed successfully."
-cd .. # Go back to the script's original directory
+#cd .. # Go back to the script's original directory
 
 # 2. Push changes to Git 
 echo "Pushing changes to Git..."
