@@ -44,6 +44,7 @@ echo "Project set."
 # --- 3. Trigger build and deploy on EC2 instance ---
 echo "Triggering build and deploy on EC2 instance ($EC2_INSTANCE)..."
 echo "Connecting to the EC2 instance ($EC2_INSTANCE)..."
+gcloud compute ssh $EC2_INSTANCE --zone=$EC2_INSTANCE_ZONE << EOF
 
     echo "--- Starting commands on EC2 ---" # Keep this line for now
     whoami                                    # <--- SIMPLIFIED: Just run 'whoami' 
