@@ -28,6 +28,7 @@ cd .. # Go back to the script's original directory
 
 # 2. Push changes to Git 
 echo "Pushing changes to Git..."
+echo "Current directory: $(pwd)"
 git push origin main  # Replace 'main' with your branch name if different
 if [ $? -ne 0 ]; then
    echo "Error: Git push failed. Please check manually and ensure your branch is correct."
