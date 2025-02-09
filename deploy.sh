@@ -44,17 +44,24 @@ echo "Project set."
 # --- 3. Trigger build and deploy on EC2 instance ---
 echo "Triggering build and deploy on EC2 instance ($EC2_INSTANCE)..."
 echo "Connecting to the EC2 instance ($EC2_INSTANCE)..."
-gcloud compute ssh $EC2_INSTANCE --zone=$EC2_INSTANCE_ZONE 
+gcloud compute ssh $EC2_INSTANCE --zone=$EC2_INSTANCE_ZONE << EOF
 
-echo "--- Starting commands on EC2 ---"
-cd ${REMOTE_REPO_DIR}
-echo "Current directory: $(pwd)"
-git pull origin main || { echo "Error: Git pull failed on EC2. Check repository and permissions."; exit 1; } # Pull latest code
-echo "Git pull successful."
-echo "${REMOTE_BUILD_SCRIPT} script executing on EC2."
-bash ${REMOTE_BUILD_SCRIPT} || { echo "Error: Build and deploy script failed on EC2. Check logs in $REMOTE_REPO_DIR."; exit 1; } # Execute build/deploy script
-echo "Deploy script executed. Checking logs next..."
+    echo "--- Starting commands on EC2 ---" # Keep this line for now
+    whoami                                    # <--- SIMPLIFIED: Just run 'whoami'
+    pwd
+    echo "--- Commands on EC2 completed ---"   # Keep this line for now
+EOF
 
+
+#   echo "--- Starting commands on EC2 ---"
+#   cd ${REMOTE_REPO_DIR}
+#   echo "Current directory: $(pwd)"
+#   git pull origin main || { echo "Error: Git pull failed on EC2. Check repository and permissions."; exit 1; } # Pull latest code
+#   echo "Git pull successful."
+#   echo "${REMOTE_BUILD_SCRIPT} script executing on EC2."
+#   bash ${REMOTE_BUILD_SCRIPT} || { echo "Error: Build and deploy script failed on EC2. Check logs in $REMOTE_REPO_DIR."; exit 1; } # Execute build/deploy script
+#   echo "Deploy script executed. Checking logs next..."
+# EOF
 
 if [ $? -ne 0 ]; then
   echo "Error: SSH command execution failed. Check SSH connection and EC2 instance."
@@ -63,7 +70,7 @@ fi
 
 # --- 4. Tail logs from EC2 instance ---
 echo "Tailing logs from EC2 instance in the background..."
-tail -f $REMOTE_LOG_FILE
+# tail -f $REMOTE_LOG_FILE
 
 echo "Deployment process started. Check logs for details."
 
