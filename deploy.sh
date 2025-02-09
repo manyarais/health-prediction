@@ -34,7 +34,7 @@ if [ $? -ne 0 ]; then
    echo "Error: Git push failed. Please check manually and ensure your branch is correct."
    exit 1
 fi
-echo "Changes pushed to Git."
+echo "Changes pushed to Git. "
 
 #2.1 Set Project to my project
 echo "Setting project to ($PROJECT_NAME)..."
